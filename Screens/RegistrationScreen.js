@@ -44,6 +44,16 @@ export default function RegistrationScreen() {
     prepare();
   }, []);
 
+  useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
   const keyboardHide = () => {
     Keyboard.dismiss();
     setShowKeyboard(false);
@@ -55,16 +65,6 @@ export default function RegistrationScreen() {
     setState(initialState);
     console.log("state", state);
   };
-
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [appIsReady]);
-
-  if (!appIsReady) {
-    return null;
-  }
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
