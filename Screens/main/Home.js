@@ -10,15 +10,16 @@ import UserSvg from "../../assets/Images/svg/UserSvg";
 import GridSvg from "../../assets/Images/svg/GridSvg";
 import AddPostSvg from "../../assets/Images/svg/AddPostSvg";
 import LogOutSvg from "../../assets/Images/svg/LogOutSvg";
+import ArrowBackSvg from "../../assets/Images/svg/ArrowBackSvg";
 
 const Main = createBottomTabNavigator();
 
-export default function Home() {
+export default function Home({ navigation }) {
   return (
     <Main.Navigator
       screenOptions={{
         tabBarStyle: {
-          height: Platform.OS === "ios" ? 83 : 53,
+          height: Platform.OS === "ios" ? 83 : 63,
           borderTopColor: "#0000004d",
           borderTopWidth: 0.5,
           paddingHorizontal: 73,
@@ -49,12 +50,11 @@ export default function Home() {
           headerRight: () => (
             <LogOutSvg
               onPress={() => alert("LogOut")}
-              color="#000000"
               style={{ marginRight: 16 }}
             />
           ),
 
-          tabBarIcon: ({ focused }) => {
+          tabBarIcon: () => {
             return <GridSvg />;
           },
           tabBarActiveTintColor: "#212121",
@@ -65,7 +65,19 @@ export default function Home() {
         name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
-          tabBarIcon: ({ focused }) => {
+          title: "Create Publications",
+          headerLeft: () => (
+            <ArrowBackSvg
+              onPress={() => navigation.navigate("PostsScreen")}
+              color="#000000"
+              style={{ marginLeft: 16 }}
+            />
+          ),
+          headerTitleStyle: {
+            marginLeft: Platform.OS === "android" && "24%",
+          },
+
+          tabBarIcon: () => {
             return <AddPostSvg />;
           },
           tabBarActiveTintColor: "#212121",
@@ -77,11 +89,13 @@ export default function Home() {
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({ focused }) => {
+          tabBarIcon: () => {
             return <UserSvg />;
           },
           tabBarActiveTintColor: "#212121",
           tabBarShowLabel: false,
+          headerShown: false,
+          tabBarStyle: { display: "none" },
         }}
       />
     </Main.Navigator>

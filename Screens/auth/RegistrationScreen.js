@@ -118,46 +118,47 @@ export default function RegistrationScreen({ navigation }) {
                   formSubmit();
                 }}
               />
+
+              <View style={styles.passwordContainer}>
+                <TextInput
+                  style={
+                    inputFocus === "password" ? styles.inputFocus : styles.input
+                  }
+                  value={state.password}
+                  placeholder="Password"
+                  placeholderTextColor="#BDBDBD"
+                  secureTextEntry={true}
+                  selectionColor={"#FF6C00"}
+                  keyboardType="visible-password"
+                  onChangeText={(value) => {
+                    setState((prevState) => ({
+                      ...prevState,
+                      password: value,
+                    }));
+                  }}
+                  onFocus={() => {
+                    setShowKeyboard(true);
+                    setInputFocus("password");
+                  }}
+                  onBlur={() => {
+                    setInputFocus("");
+                  }}
+                  onSubmitEditing={() => {
+                    setShowKeyboard(false);
+                    formSubmit();
+                  }}
+                />
+                {hidePass ? (
+                  <Text style={styles.showPassword} onPress={showPassword}>
+                    Hide
+                  </Text>
+                ) : (
+                  <Text style={styles.showPassword} onPress={showPassword}>
+                    Show
+                  </Text>
+                )}
+              </View>
             </KeyboardAvoidingView>
-            <View style={styles.passwordContainer}>
-              <TextInput
-                style={
-                  inputFocus === "password" ? styles.inputFocus : styles.input
-                }
-                value={state.password}
-                placeholder="Password"
-                placeholderTextColor="#BDBDBD"
-                secureTextEntry={true}
-                selectionColor={"#FF6C00"}
-                keyboardType="visible-password"
-                onChangeText={(value) => {
-                  setState((prevState) => ({
-                    ...prevState,
-                    password: value,
-                  }));
-                }}
-                onFocus={() => {
-                  setShowKeyboard(true);
-                  setInputFocus("password");
-                }}
-                onBlur={() => {
-                  setInputFocus("");
-                }}
-                onSubmitEditing={() => {
-                  setShowKeyboard(false);
-                  formSubmit();
-                }}
-              />
-              {hidePass ? (
-                <Text style={styles.showPassword} onPress={showPassword}>
-                  Hide
-                </Text>
-              ) : (
-                <Text style={styles.showPassword} onPress={showPassword}>
-                  Show
-                </Text>
-              )}
-            </View>
 
             <TouchableOpacity
               activeOpacity={0.7}
@@ -266,7 +267,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -60,
     left: "50%",
-    transform: [{ translateX: -50 }],
+    transform: [{ translateX: -44 }],
     borderRadius: 16,
   },
   addAvatar: {
