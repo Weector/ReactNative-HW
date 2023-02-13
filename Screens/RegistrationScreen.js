@@ -11,6 +11,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  Dimensions,
 } from "react-native";
 
 import * as SplashScreen from "expo-splash-screen";
@@ -40,7 +41,6 @@ export default function RegistrationScreen() {
         setAppIsReady(true);
       }
     }
-
     prepare();
   }, []);
 
@@ -77,7 +77,10 @@ export default function RegistrationScreen() {
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
             <View
-              style={{ ...styles.form, marginBottom: showKeyboard ? -174 : 0 }}
+              style={{
+                ...styles.form,
+                marginBottom: showKeyboard ? -174 : 0,
+              }}
             >
               <View style={styles.avatarBG}>
                 <Image
@@ -163,7 +166,7 @@ const styles = StyleSheet.create({
     paddingTop: 92,
     paddingHorizontal: 16,
     backgroundColor: "#FFFFFF",
-    minHeight: 549,
+    height: 549,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
   },
