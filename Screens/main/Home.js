@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, Image } from "react-native";
+import { View, Text, StyleSheet, Button, Image, Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -18,7 +18,7 @@ export default function Home() {
     <Main.Navigator
       screenOptions={{
         tabBarStyle: {
-          height: 83,
+          height: Platform.OS === "ios" ? 83 : 53,
           borderTopColor: "#0000004d",
           borderTopWidth: 0.5,
           paddingHorizontal: 73,
@@ -30,6 +30,7 @@ export default function Home() {
           fontSize: 17,
           lineHeight: 22,
           letterSpacing: 0.4,
+          marginLeft: Platform.OS === "android" && "50%",
         },
         headerStyle: {
           backgroundColor: "#FFFFFF",
