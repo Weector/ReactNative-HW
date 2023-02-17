@@ -1,92 +1,95 @@
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  FlatList,
-  Image,
-  View,
-} from "react-native";
+import React from "react";
+import { TouchableOpacity } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-const POSTS = [
-  {
-    id: "45k6-j54k-4jth",
-    login: "HTML",
-    email: "html@mail.com",
-  },
-  {
-    id: "4116-jfk5-43rh",
-    login: "JavaScript",
-    email: "javascript@mail.com",
-  },
-  {
-    id: "4d16-5tt5-4j55",
-    login: "React",
-    email: "react@mail.com",
-  },
-  {
-    id: "LG16-ant5-0J25",
-    login: "React Native",
-    email: "reactnative@mail.com",
-  },
-  {
-    id: "Fr45-ant5-2WWq",
-    login: "Node Js",
-    email: "nodejs@mail.com",
-  },
-];
+import DefaultScreenPosts from "../postNestedScreens/DefaultPostsScreen";
+import CommentsScreen from "../postNestedScreens/CommentsScreen";
+import MapScreen from "../postNestedScreens/MapScreen";
+import ArrowBackSvg from "../../assets/Images/svg/ArrowBackSvg";
+import LogOutSvg from "../../assets/Images/svg/LogOutSvg";
 
-export default function App() {
-  const [posts, setPosts] = useState(POSTS);
+const NestedScreen = createStackNavigator();
 
+const PostsScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={posts}
-        renderItem={({ item }) => (
-          <View style={styles.list}>
-            <Image
-              source={{ uri: "https://i.pravatar.cc/300" }}
-              style={styles.avatar}
-            />
-            <View style={styles.data}>
-              <Text style={styles.login}>{item.login}</Text>
-              <Text style={styles.email}>{item.email}</Text>
-            </View>
-          </View>
-        )}
-        keyExtractor={(item) => item.id}
-      />
-    </SafeAreaView>
-  );
-}
+    <NestedScreen.Navigator
+      screenOptions={{
+        headerTitleStyle: {
+          fontWeight: "bold",
+          fontSize: 17,
+          lineHeight: 22,
+          letterSpacing: 0.4,
+          marginLeft: Platform.OS === "android" && "50%",
+        },
+        headerStyle: {
+          backgroundColor: "#FFFFFF",
+          borderBottomColor: "#0000004d",
+          borderBottomWidth: 0.5,
+        },
+        headerTintColor: "#212121",
+      }}
+    >
+      <NestedScreen.Screen
+        name="PostsScreen"
+        component={DefaultScreenPosts}
+        options={{
+          title: "Publications",
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 16,
-    justifyContent: "center",
-    backgroundColor: "#FFFFFF",
-  },
-  list: {
-    flex: 1,
-    flexDirection: "row",
-    marginTop: 32,
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
-  data: { marginLeft: 8 },
-  avatar: { width: 60, height: 60, borderRadius: 16 },
-  login: {
-    fontSize: 13,
-    fontWeight: "700",
-    lineHeight: 15,
-    color: "#212121",
-  },
-  email: {
-    fontSize: 11,
-    lineHeight: 14,
-    color: "#212121",
-    opacity: 0.8,
-  },
-});
+          headerRight: () => (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => alert("LogOut")}
+              style={{ marginRight: 16 }}
+            >
+              <LogOutSvg />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <NestedScreen.Screen
+        name="Comments"
+        component={CommentsScreen}
+        options={{
+          title: "Comments",
+
+          headerLeft: () => (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate("PostsScreen")}
+              // onPress={() => navigation.goBack()}
+              style={{ marginLeft: 16 }}
+            >
+              <ArrowBackSvg />
+            </TouchableOpacity>
+          ),
+          headerTitleStyle: {
+            marginLeft: Platform.OS === "android" && "24%",
+          },
+        }}
+      />
+      <NestedScreen.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          title: "Map",
+          // headerShown: false,
+          headerLeft: () => (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate("PostsScreen")}
+              // onPress={() => navigation.goBack()}
+              style={{ marginLeft: 16 }}
+            >
+              <ArrowBackSvg />
+            </TouchableOpacity>
+          ),
+          headerTitleStyle: {
+            marginLeft: Platform.OS === "android" && "24%",
+          },
+        }}
+      />
+    </NestedScreen.Navigator>
+  );
+};
+
+export default PostsScreen;

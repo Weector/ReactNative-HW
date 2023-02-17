@@ -11,14 +11,14 @@ import Home from "./Screens/main/Home";
 export default function useRoute(isAuth) {
   if (!isAuth) {
     return (
-      <AuthStack.Navigator initialRouteName="RegistrationScreen">
+      <AuthStack.Navigator initialRouteName="Auth">
         <AuthStack.Screen
-          name="RegistrationScreen"
+          name="Registration"
           component={RegistrationScreen}
           options={{ headerShown: false }}
         />
         <AuthStack.Screen
-          name="LoginScreen"
+          name="Login"
           component={LoginScreen}
           options={{ headerShown: false }}
         />
@@ -26,7 +26,7 @@ export default function useRoute(isAuth) {
     );
   }
   return (
-    <MainStack.Navigator>
+    <MainStack.Navigator initialRouteName="Home">
       <MainStack.Screen
         name="Home"
         component={Home}

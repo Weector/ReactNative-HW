@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -9,7 +9,6 @@ import {
   Image,
   SafeAreaView,
   FlatList,
-  Dimensions,
   Platform,
 } from "react-native";
 
@@ -21,6 +20,7 @@ import GridSvg from "../../assets/Images/svg/GridSvg";
 import UserWhiteSvg from "../../assets/Images/svg/UserWhiteSvg";
 import PlusSvg from "../../assets/Images/svg/PlusSvg";
 import LogOutSvg from "../../assets/Images/svg/LogOutSvg";
+import dimensionsWidth from "../../helpers/dimensions";
 
 const POSTS = [
   {
@@ -50,16 +50,9 @@ const POSTS = [
   },
 ];
 
-export default function RegistrationScreen({ navigation }) {
+export default function ProfileScreen({ navigation }) {
   const [posts, setPosts] = useState(POSTS);
-  const [dimensions, setDimensions] = useState(
-    Dimensions.get("window").width - 16 * 2
-  );
-
-  useEffect(() => {
-    const width = Dimensions.get("window").width - 16 * 2;
-    setDimensions(width);
-  }, []);
+  const screenWidth = dimensionsWidth();
 
   return (
     <View style={styles.container}>
@@ -68,10 +61,14 @@ export default function RegistrationScreen({ navigation }) {
         source={require("../../assets/Images/registerBackground.jpg")}
       >
         <View style={styles.content}>
-          <LogOutSvg
+          <TouchableOpacity
+            activeOpacity={0.7}
             style={styles.logoutLogo}
             onPress={() => alert("LogOut")}
-          />
+          >
+            <LogOutSvg />
+          </TouchableOpacity>
+
           <View style={styles.avatarBG}>
             <Image
               source={{ uri: "https://i.pravatar.cc/300" }}
@@ -87,8 +84,9 @@ export default function RegistrationScreen({ navigation }) {
           </View>
           <Text style={styles.title}>User Name</Text>
 
-          <SafeAreaView>
+          <View style={{ flex: 1 }}>
             <FlatList
+              showsVerticalScrollIndicator={false}
               data={posts}
               renderItem={({ item }) => (
                 <View style={styles.list}>
@@ -96,7 +94,7 @@ export default function RegistrationScreen({ navigation }) {
                     source={{
                       uri: "https://picsum.photos/343/240",
                     }}
-                    style={{ ...styles.picture, dimensions }}
+                    style={{ ...styles.picture, width: screenWidth }}
                   />
                   <Text style={styles.name}>{item.name}</Text>
                   <View style={styles.statisticsThumb}>
@@ -115,21 +113,31 @@ export default function RegistrationScreen({ navigation }) {
               )}
               keyExtractor={(item) => item.id}
             />
-          </SafeAreaView>
+          </View>
         </View>
+
+        {/* TabBar */}
+
         <View style={styles.tabBar}>
-          <GridSvg
+          <TouchableOpacity
+            activeOpacity={0.7}
             style={styles.gridLogo}
-            onPress={() => navigation.navigate("PostsScreen")}
-          />
+            onPress={() => navigation.navigate("Posts")}
+          >
+            <GridSvg />
+          </TouchableOpacity>
+
           <View style={styles.userLogoContainer}>
             <UserWhiteSvg style={styles.userLogo} />
           </View>
 
-          <PlusSvg
+          <TouchableOpacity
+            activeOpacity={0.7}
             style={styles.plusLogo}
-            onPress={() => navigation.navigate("CreatePostsScreen")}
-          />
+            onPress={() => navigation.navigate("CreatePosts")}
+          >
+            <PlusSvg />
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>
@@ -151,7 +159,7 @@ const styles = StyleSheet.create({
     paddingTop: 92,
     paddingHorizontal: 16,
     backgroundColor: "#FFFFFF",
-    minHeight: 475,
+    minHeight: Platform.OS === "iso" ? 475 : 525,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
   },
@@ -236,11 +244,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    height: Platform.OS === "ios" ? 83 : 73,
+    height: 83,
     borderTopColor: "#0000004d",
     borderTopWidth: 1,
     backgroundColor: "#FFFFFF",
-    paddingBottom: 20,
+    paddingBottom: 30,
   },
   gridLogo: { marginRight: 42 },
   userLogoContainer: {

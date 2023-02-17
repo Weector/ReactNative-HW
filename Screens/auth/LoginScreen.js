@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-export default function RegistrationScreen({ navigation }) {
+export default function LoginScreen({ navigation }) {
   const initialState = {
     email: "",
     password: "",
@@ -129,9 +129,7 @@ export default function RegistrationScreen({ navigation }) {
               <TouchableOpacity activeOpacity={0.7}>
                 <Text style={styles.signUnLink}>
                   Don't have account?
-                  <Text
-                    onPress={() => navigation.navigate("RegistrationScreen")}
-                  >
+                  <Text onPress={() => navigation.navigate("Registration")}>
                     {" "}
                     Sign Up
                   </Text>
