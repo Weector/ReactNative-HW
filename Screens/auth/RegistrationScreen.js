@@ -171,7 +171,7 @@ export default function RegistrationScreen({ navigation }) {
             <TouchableOpacity activeOpacity={0.7}>
               <Text style={styles.signInLink}>
                 Already have account?{" "}
-                <Text onPress={() => navigation.navigate("LoginScreen")}>
+                <Text onPress={() => navigation.navigate("Login")}>
                   Sign In
                 </Text>
               </Text>

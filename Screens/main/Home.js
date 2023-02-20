@@ -1,15 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, Image, Platform } from "react-native";
+import { StyleSheet, Platform, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
 
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import UserSvg from "../../assets/Images/svg/UserSvg";
-import GridSvg from "../../assets/Images/svg/GridSvg";
 import AddPostSvg from "../../assets/Images/svg/AddPostSvg";
-import LogOutSvg from "../../assets/Images/svg/LogOutSvg";
 import ArrowBackSvg from "../../assets/Images/svg/ArrowBackSvg";
 
 const Main = createBottomTabNavigator();
@@ -19,10 +16,11 @@ export default function Home({ navigation }) {
     <Main.Navigator
       screenOptions={{
         tabBarStyle: {
-          height: Platform.OS === "ios" ? 83 : 63,
+          height: 83,
           borderTopColor: "#0000004d",
           borderTopWidth: 0.5,
-          paddingHorizontal: 73,
+          paddingHorizontal: Platform.OS === "ios" ? 69 : 51,
+          paddingBottom: 30,
         },
         tabBarActiveTintColor: "#E8E8E8",
         tabBarShowLabel: false,
@@ -42,36 +40,26 @@ export default function Home({ navigation }) {
       }}
     >
       <Main.Screen
-        name="PostsScreen"
+        name="Posts"
         component={PostsScreen}
         options={{
-          title: "Publications",
-
-          headerRight: () => (
-            <LogOutSvg
-              onPress={() => alert("LogOut")}
-              style={{ marginRight: 16 }}
-            />
-          ),
-
-          tabBarIcon: () => {
-            return <GridSvg />;
-          },
-          tabBarActiveTintColor: "#212121",
-          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarStyle: { display: "none" },
         }}
       />
       <Main.Screen
-        name="CreatePostsScreen"
+        name="CreatePosts"
         component={CreatePostsScreen}
         options={{
           title: "Create Publications",
           headerLeft: () => (
-            <ArrowBackSvg
-              onPress={() => navigation.navigate("PostsScreen")}
-              color="#000000"
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate("Posts")}
               style={{ marginLeft: 16 }}
-            />
+            >
+              <ArrowBackSvg />
+            </TouchableOpacity>
           ),
           headerTitleStyle: {
             marginLeft: Platform.OS === "android" && "24%",
@@ -86,7 +74,7 @@ export default function Home({ navigation }) {
         }}
       />
       <Main.Screen
-        name="ProfileScreen"
+        name="Profile"
         component={ProfileScreen}
         options={{
           tabBarIcon: () => {
