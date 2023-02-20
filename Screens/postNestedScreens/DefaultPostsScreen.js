@@ -8,7 +8,6 @@ import UserSvg from "../../assets/Images/svg/UserSvg";
 import PostMarkup from "../../components/PostMarkup";
 
 export default function DefaultPostsScreen({ route, navigation }) {
-  console.log("route", route);
   const [posts, setPosts] = useState([]);
 
   const postData = route.params;

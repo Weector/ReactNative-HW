@@ -19,8 +19,6 @@ export default function MapScreen({ route }) {
           longitudeDelta: 0.006,
         }}
         mapType="standard"
-        onMapReady={() => console.log("Map is ready")}
-        onRegionChange={() => console.log("Region change")}
       >
         <Marker
           title={name}

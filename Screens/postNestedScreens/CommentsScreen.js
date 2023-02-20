@@ -106,7 +106,7 @@ export default function CommentsScreen({ route }) {
               setState((prevState) => ({
                 ...prevState,
                 text: value,
-                own: true,
+                own: false,
               }));
             }}
             onSubmitEditing={() => {
