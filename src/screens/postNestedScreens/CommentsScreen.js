@@ -19,6 +19,7 @@ import SendSvg from '../../components/SVG/SendSvg';
 import { useDispatch, useSelector } from 'react-redux';
 import postsOperations from '../../redux/posts/postsOperation';
 import { postsSelector } from '../../redux/posts/postSelectors';
+import { authSelectors } from '../../redux/auth/authSelectors';
 
 export default function CommentsScreen({ route }) {
   const initialState = {
@@ -38,6 +39,7 @@ export default function CommentsScreen({ route }) {
   const { postId, image } = route.params;
 
   const comments = useSelector(postsSelector.getComments);
+  const {userAvatar} = useSelector(authSelectors.getUser);
 
   useEffect(() => {
 
@@ -84,7 +86,7 @@ export default function CommentsScreen({ route }) {
             <View>
               <Image
                 source={{
-                  uri: 'https://i.pravatar.cc/300',
+                  uri: userAvatar,
                 }}
                 style={styles.avatar}
               />

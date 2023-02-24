@@ -31,8 +31,12 @@ export default function ProfileScreen({ navigation }) {
   const screenWidth = DimensionsWidth();
 
   const dispatch = useDispatch();
-  const posts = useSelector(postsSelector.getOwnPosts);
+
   const user = useSelector(authSelectors.getUser);
+  const posts = useSelector(postsSelector.getOwnPosts) .slice()
+    .sort((a, b) => {
+      return b.createdAt - a.createdAt;
+    });
 
 
 

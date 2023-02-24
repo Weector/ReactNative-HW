@@ -15,7 +15,6 @@ import {
 import Avatar from '../../components/Avatar/Avatar';
 import { useDispatch } from 'react-redux';
 
-
 import authOperations from '../../redux/auth/authOperations';
 
 export default function RegistrationScreen({ navigation }) {
@@ -69,7 +68,6 @@ export default function RegistrationScreen({ navigation }) {
                     : 0,
             }}
           >
-
             <View style={styles.avatarWrapper}>
               <View style={styles.avatar}>
                 <Avatar avatarImg={avatarImg} setAvatarImg={setAvatarImg} />

@@ -126,7 +126,6 @@ export default function CreatePostsScreen({ navigation }) {
               )}
               <TouchableOpacity
                 activeOpacity={0.7}
-                // style={styles.btn}
                 onPress={takePhoto}
                 type={SubmitEvent}
               >
@@ -254,7 +253,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingBottom: 30,
     borderRadius: 8,
-    // marginBottom: 50,
+
   },
   camera: {
     justifyContent: 'center',

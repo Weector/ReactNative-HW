@@ -9,9 +9,6 @@ import { auth } from '../../firebase/config';
 import uploadPhotoToServer from '../../helpers/uploadPhotoToServer';
 import { authAction } from './authSlice';
 
-
-
-
 const authRegister =
   ({ login, email, password,
     photo
