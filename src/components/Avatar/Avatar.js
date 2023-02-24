@@ -5,6 +5,7 @@ import uploadPhotoToServer from '../../helpers/uploadPhotoToServer';
 import AddAvatarSvg from '../SVG/AddAvatarSvg';
 import RemoveAvatarSvg from '../SVG/RemoveAvatarSvg';
 
+
 export default function Avatar({ avatarImg, setAvatarImg }) {
   const addImage = async () => {
     if (avatarImg) return setAvatarImg('');
@@ -15,6 +16,7 @@ export default function Avatar({ avatarImg, setAvatarImg }) {
       aspect: [4, 3],
       quality: 1,
     });
+
 
     if (!result.canceled) {
       const photoUrl = await uploadPhotoToServer(result.assets[0].uri, 'userAvatar/avatar');

@@ -39,7 +39,7 @@ export default function CommentsScreen({ route }) {
   const { postId, image } = route.params;
 
   const comments = useSelector(postsSelector.getComments);
-  const {userAvatar} = useSelector(authSelectors.getUser);
+  const {userAvatar, userId} = useSelector(authSelectors.getUser);
 
   useEffect(() => {
 
@@ -49,9 +49,10 @@ export default function CommentsScreen({ route }) {
 
   const commentData = {
     text: state.text,
-    own: false,
+    ownerId: userId,
     date: date,
     postId: postId,
+    ownerAvatar: userAvatar,
   };
 
   const sendComment = () => {
@@ -77,30 +78,32 @@ export default function CommentsScreen({ route }) {
         showsVerticalScrollIndicator={false}
         data={comments}
         style={styles.list}
-        renderItem={({ item }) => (
-          <View
-            style={
-              item.own ? styles.commentContainer : styles.commentContainerOwn
-            }
-          >
-            <View>
-              <Image
-                source={{
-                  uri: userAvatar,
-                }}
-                style={styles.avatar}
-              />
-            </View>
+        renderItem={({ item }) => {
+          const isOwn = item.ownerId === userId;
+          return (
             <View
-              style={item.own ? styles.textContainer : styles.textContainerOwn}
+              style={
+                !isOwn ? styles.commentContainer : styles.commentContainerOwn
+              }
             >
-              <Text style={styles.text}>{item.text}</Text>
-              <Text style={{ ...styles.date, marginLeft: item.own && 'auto' }}>
-                {item.date}
-              </Text>
+              <View>
+                <Image
+                  source={{
+                    uri: item.ownerAvatar,
+                  }}
+                  style={styles.avatar}
+                />
+              </View>
+              <View
+                style={!isOwn ? styles.textContainer : styles.textContainerOwn}
+              >
+                <Text style={styles.text}>{item.text}</Text>
+                <Text style={{ ...styles.date, marginLeft: isOwn ? 'auto' : 0 }}>
+                  {item.date}
+                </Text>
+              </View>
             </View>
-          </View>
-        )}
+          );}}
         keyExtractor={(item, index) => index}
       />
 

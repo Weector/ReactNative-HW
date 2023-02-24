@@ -20,13 +20,14 @@ const getAllComments =
       }
     };
 
-const createComment = ({ postId, text, own, date }) => async (dispatch) => {
+const createComment = ({ postId, text, ownerId, date, ownerAvatar }) => async (dispatch) => {
   try {
     const docRef = doc(db, 'posts', postId);
     await addDoc(collection(docRef, 'comments'), {
       text,
-      own,
+      ownerId,
       date, 
+      ownerAvatar
     });
     dispatch(getAllPosts());
     dispatch(getOwnPosts());
