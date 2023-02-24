@@ -36,7 +36,7 @@ export default function CreatePostsScreen({ navigation }) {
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
-  const [newPhoto, setNewPhoto] = useState('');
+  const [newPhoto, setNewPhoto] = useState(null);
   const [location, setLocation] = useState(null);
 
   const { userId, userName } = useSelector(authSelectors.getUser);
@@ -98,7 +98,7 @@ export default function CreatePostsScreen({ navigation }) {
 
     dispatch(postsOperations.addPostToServer(data));
     navigation.navigate('PostsScreen');
-
+    setNewPhoto(null);
     setState(initialState);
   };
 
